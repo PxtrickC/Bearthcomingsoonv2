@@ -1,25 +1,11 @@
 import svgPaths from "./imports/svg-4clbyaz01u";
-import img553366211178513951475546268021866254933006617N1 from "figma:asset/67b326bf20402a3a58b4da040aa11f0a36359f64.png";
+
+// Import bear heads image from public/assets folder
+const bearHeadsImage = "/assets/bear-heads.png";
 
 // Constants
 const BRAND_COLOR = '#41AFEB';
 const BACKGROUND_COLOR = '#5AE4DB';
-
-const TEXT_SHADOW_OUTLINE = `
-  -3px -3px 0 ${BRAND_COLOR},
-  3px -3px 0 ${BRAND_COLOR},
-  -3px 3px 0 ${BRAND_COLOR},
-  3px 3px 0 ${BRAND_COLOR},
-  -3px 0 0 ${BRAND_COLOR},
-  3px 0 0 ${BRAND_COLOR},
-  0 -3px 0 ${BRAND_COLOR},
-  0 3px 0 ${BRAND_COLOR},
-  -2px -2px 0 ${BRAND_COLOR},
-  2px -2px 0 ${BRAND_COLOR},
-  -2px 2px 0 ${BRAND_COLOR},
-  2px 2px 0 ${BRAND_COLOR},
-  0 0 10px rgba(65, 175, 235, 0.5)
-`;
 
 const SOCIAL_LINKS = [
   {
@@ -136,7 +122,7 @@ function BearImage({ position }: { position: 'left' | 'right' }) {
         <img 
           alt={altText}
           className={`absolute h-[434.78%] max-w-none top-[-160%] w-[288.94%] ${position === 'left' ? 'left-0' : 'left-[-188.94%]'}`}
-          src={img553366211178513951475546268021866254933006617N1} 
+          src={bearHeadsImage} 
         />
       </div>
     </div>
@@ -146,64 +132,70 @@ function BearImage({ position }: { position: 'left' | 'right' }) {
 export default function App() {
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: BACKGROUND_COLOR }}>
-      {/* Background Video */}
-      <video 
-        autoPlay 
-        loop 
-        muted 
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      >
-        <source src="https://bearth.earth/static/media/ComingSoonBG.webm" type="video/webm" />
-      </video>
-      
-      {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center px-4 py-8 md:py-0 w-full max-w-[1200px]">
-        {/* Logo with Bears */}
-        <div className="relative w-full max-w-[450px] md:max-w-[600px] lg:max-w-[883px] mb-6 md:mb-8">
-          <BearthLogotype />
-          {/* Left Bear */}
-          <BearImage position="left" />
-          {/* Right Bear */}
-          <BearImage position="right" />
-        </div>
-        
-        {/* Coming Soon Text */}
-        <h1 
-          className="text-white text-[28px] md:text-[40px] mb-8 md:mb-12 font-['Istok_Web'] tracking-wide"
-          style={{ textShadow: TEXT_SHADOW_OUTLINE }}
+        {/* Background Video */}
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          aria-hidden="true"
         >
-          COMING SOON
-        </h1>
+          <source src="https://bearth.earth/static/media/ComingSoonBG.webm" type="video/webm" />
+        </video>
         
-        {/* Social Media Card */}
-        <div className="bg-white box-border flex flex-col items-center px-[24px] md:px-[32px] py-[12px] md:py-[16px] rounded-[10px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)]">
-          {/* Social Icons */}
-          <div className="flex items-center mb-2 gap-[15px]">
-            {SOCIAL_LINKS.map((link) => {
-              const IconComponent = link.icon;
-              return (
-                <a 
-                  key={link.name}
-                  href={link.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="transition-opacity hover:opacity-70"
-                  aria-label={link.ariaLabel}
-                >
-                  <IconComponent />
-                </a>
-              );
-            })}
+        {/* Main Content */}
+        <main className="relative z-10 flex flex-col items-center justify-center px-4 py-8 md:py-0 w-full max-w-[1200px]">
+          {/* Logo with Bears */}
+          <div className="relative w-full max-w-[450px] md:max-w-[600px] lg:max-w-[883px] mb-6 md:mb-8">
+            <BearthLogotype />
+            {/* Left Bear */}
+            <BearImage position="left" />
+            {/* Right Bear */}
+            <BearImage position="right" />
           </div>
           
-          {/* Follow Text */}
-          <p className="font-['Istok_Web'] text-[16px] md:text-[20px] text-center whitespace-nowrap" style={{ color: BRAND_COLOR }}>
-            Follow us for latest update
-          </p>
-        </div>
+          {/* Coming Soon Text */}
+          <h1 
+            className="text-white text-[28px] md:text-[40px] mb-8 md:mb-12 tracking-wide"
+            style={{ 
+              fontFamily: "'Istok Web', sans-serif",
+              WebkitTextStroke: `8px ${BRAND_COLOR}`,
+              paintOrder: 'stroke fill',
+              filter: 'drop-shadow(0 0 10px rgba(65, 175, 235, 0.5))'
+            }}
+          >
+            COMING SOON
+          </h1>
+          
+          {/* Social Media Section */}
+          <section className="bg-white box-border flex flex-col items-center px-[24px] md:px-[32px] py-[12px] md:py-[16px] rounded-[10px] shadow-[0px_0px_10px_0px_rgba(0,0,0,0.25)]">
+            {/* Social Icons */}
+            <nav className="flex items-center mb-2 gap-[15px]" aria-label="Social media links">
+              {SOCIAL_LINKS.map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <a 
+                    key={link.name}
+                    href={link.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="transition-opacity hover:opacity-70"
+                    aria-label={link.ariaLabel}
+                  >
+                    <IconComponent />
+                  </a>
+                );
+              })}
+            </nav>
+            
+            {/* Follow Text */}
+            <p className="text-[16px] md:text-[20px] text-center whitespace-nowrap" style={{ fontFamily: "'Istok Web', sans-serif", color: BRAND_COLOR }}>
+              Follow us for latest update
+            </p>
+          </section>
+        </main>
       </div>
-    </div>
   );
 }
